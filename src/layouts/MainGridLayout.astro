@@ -12,10 +12,7 @@ import IconifyLoader from "../components/misc/IconifyLoader.astro";
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import TypewriterText from "../components/TypewriterText.astro";
 import TOC from "../components/widget/TOC.astro";
-import {
-	fullscreenWallpaperConfig,
-	siteConfig,
-} from "../config";
+import { fullscreenWallpaperConfig, siteConfig } from "../config";
 import {
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
@@ -137,12 +134,14 @@ const hasLeftSidebarComponents =
 // 检查右侧边栏是否有组件
 const hasRightSidebarComponents =
 	widgetManager.getComponentsByPosition("top", "right", "desktop").length > 0 ||
-	widgetManager.getComponentsByPosition("sticky", "right", "desktop").length > 0;
+	widgetManager.getComponentsByPosition("sticky", "right", "desktop").length >
+		0;
 
 // 检查手机端 drawer 是否有组件
 const hasMobileDrawerComponents =
 	widgetManager.getComponentsByPosition("top", "drawer", "mobile").length > 0 ||
-	widgetManager.getComponentsByPosition("sticky", "drawer", "mobile").length > 0;
+	widgetManager.getComponentsByPosition("sticky", "drawer", "mobile").length >
+		0;
 
 // 平板端是否有组件（考虑自动移动逻辑）
 const hasTabletLeftSidebarComponents =
@@ -152,7 +151,8 @@ const hasTabletLeftSidebarComponents =
 // 检查侧边栏是否启用，动态调整网格布局
 const mobileShowSidebar = hasMobileDrawerComponents;
 const tabletShowSidebar = hasTabletLeftSidebarComponents;
-const desktopShowSidebar = hasLeftSidebarComponents || hasRightSidebarComponents;
+const desktopShowSidebar =
+	hasLeftSidebarComponents || hasRightSidebarComponents;
 
 // 桌面端侧边栏最终显示状态（考虑是否有组件）
 const desktopShowLeftSidebar = hasLeftSidebarComponents;

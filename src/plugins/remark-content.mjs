@@ -22,9 +22,7 @@ export function remarkContent() {
 		if (tree.children && Array.isArray(tree.children)) {
 			moreTagIndex = tree.children.findIndex(
 				(node) =>
-					node.type === "html" &&
-					node.value &&
-					moreTagRegex.test(node.value),
+					node.type === "html" && node.value && moreTagRegex.test(node.value),
 			);
 		}
 
@@ -52,8 +50,7 @@ export function remarkContent() {
 		// --- 计算阅读时间 (Reading Time) ---
 		visit(tree, (node) => {
 			// 跳过代码块，不计入字数
-			if (node.type === "code" || node.type === "inlineCode")
-				return "skip";
+			if (node.type === "code" || node.type === "inlineCode") return "skip";
 
 			// 累加文本
 			if (node.type === "text" && node.value) {

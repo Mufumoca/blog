@@ -5,7 +5,10 @@ import SiteStats from "./SiteStats.astro";
 
 // 分离顶部固定和粘性定位的组件
 const topComponents = widgetManager.getComponentsByPosition("top", "right");
-const stickyComponents = widgetManager.getComponentsByPosition("sticky", "right");
+const stickyComponents = widgetManager.getComponentsByPosition(
+	"sticky",
+	"right",
+);
 ---
 
 <div class="right-sidebar" id="right-sidebar">

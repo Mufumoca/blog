@@ -18,11 +18,27 @@ interface Props {
 const { class: className, headings } = Astro.props;
 
 // 获取不同设备下的组件列表
-const mobileTopComponents = widgetManager.getComponentsByPosition("top", "drawer", "mobile");
-const mobileStickyComponents = widgetManager.getComponentsByPosition("sticky", "drawer", "mobile");
+const mobileTopComponents = widgetManager.getComponentsByPosition(
+	"top",
+	"drawer",
+	"mobile",
+);
+const mobileStickyComponents = widgetManager.getComponentsByPosition(
+	"sticky",
+	"drawer",
+	"mobile",
+);
 
-const tabletTopComponents = widgetManager.getComponentsByPosition("top", "left", "tablet");
-const tabletStickyComponents = widgetManager.getComponentsByPosition("sticky", "left", "tablet");
+const tabletTopComponents = widgetManager.getComponentsByPosition(
+	"top",
+	"left",
+	"tablet",
+);
+const tabletStickyComponents = widgetManager.getComponentsByPosition(
+	"sticky",
+	"left",
+	"tablet",
+);
 
 // 组件映射表
 const componentMap = {

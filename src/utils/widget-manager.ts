@@ -109,10 +109,7 @@ export class WidgetManager {
 	 * @param component 组件配置
 	 * @param index 组件在列表中的索引
 	 */
-	getComponentClass(
-		component: WidgetComponentConfig,
-		_index: number,
-	): string {
+	getComponentClass(component: WidgetComponentConfig, _index: number): string {
 		const classes: string[] = [];
 
 		// 添加基础类名

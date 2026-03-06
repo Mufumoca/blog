@@ -15,10 +15,7 @@ import {
 	getPostUrlBySlug,
 	removeFileExtension,
 } from "@utils/url-utils";
-import {
-	hasCustomPermalink,
-	initPostIdMap,
-} from "@utils/permalink-utils";
+import { hasCustomPermalink, initPostIdMap } from "@utils/permalink-utils";
 import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -75,9 +72,7 @@ export async function getStaticPaths() {
 			if (entry.data.alias) {
 				// 移除开头的斜杠和结尾的斜杠
 				// 同时移除可能的 "posts/" 前缀，避免重复
-				let alias = entry.data.alias
-					.replace(/^\/+/, "")
-					.replace(/\/+$/, "");
+				let alias = entry.data.alias.replace(/^\/+/, "").replace(/\/+$/, "");
 				if (alias.startsWith("posts/")) {
 					alias = alias.replace(/^posts\//, "");
 				}

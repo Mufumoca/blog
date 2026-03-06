@@ -186,8 +186,7 @@ export const ja: Translation = {
 	[Key.rssHowToUse]:
 		"このサイトの購読はFeedly、Inoreaderまたはその他のRSSリーダーの使用をおすすめします。",
 	[Key.rssCopied]: "RSSのリンクをクリップボードにコピーしました!",
-	[Key.rssCopyFailed]:
-		"コピーに失敗しました。リンクを手動で追加してください。",
+	[Key.rssCopyFailed]: "コピーに失敗しました。リンクを手動で追加してください。",
 
 	// Atomページ
 	[Key.atom]: "Atomフィード",
@@ -268,8 +267,7 @@ export const ja: Translation = {
 
 	// パスワード保護
 	[Key.passwordProtected]: "パスワードで保護されています",
-	[Key.passwordProtectedTitle]:
-		"このコンテンツはパスワードで保護されています",
+	[Key.passwordProtectedTitle]: "このコンテンツはパスワードで保護されています",
 	[Key.passwordProtectedDescription]:
 		"保護されたコンテンツを表示するにはパスワードを入力してください。",
 	[Key.passwordPlaceholder]: "パスワードを入力",

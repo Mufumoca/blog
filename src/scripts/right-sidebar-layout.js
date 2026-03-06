@@ -41,8 +41,7 @@ function initPageLayout(pageType) {
 	// 监听页面导航事件
 	document.addEventListener("astro:page-load", () => {
 		setTimeout(() => {
-			const currentLayout =
-				localStorage.getItem("postListLayout") || "list";
+			const currentLayout = localStorage.getItem("postListLayout") || "list";
 			if (currentLayout === "grid") {
 				hideRightSidebar();
 			} else {
@@ -54,8 +53,7 @@ function initPageLayout(pageType) {
 	// 监听SWUP导航事件
 	document.addEventListener("swup:contentReplaced", () => {
 		setTimeout(() => {
-			const currentLayout =
-				localStorage.getItem("postListLayout") || "list";
+			const currentLayout = localStorage.getItem("postListLayout") || "list";
 			if (currentLayout === "grid") {
 				hideRightSidebar();
 			} else {

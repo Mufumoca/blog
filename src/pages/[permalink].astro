@@ -17,7 +17,11 @@ import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
 import { getFileDirFromPath, getPostUrlBySlug } from "@utils/url-utils";
-import { initPostIdMap, hasCustomPermalink, generatePermalinkSlug } from "@utils/permalink-utils";
+import {
+	initPostIdMap,
+	hasCustomPermalink,
+	generatePermalinkSlug,
+} from "@utils/permalink-utils";
 import { permalinkConfig } from "@/config";
 import { Icon } from "astro-icon/components";
 import CryptoJS from "crypto-js";
@@ -45,9 +49,7 @@ export async function getStaticPaths() {
 
 		// 优先使用自定义 permalink
 		if (hasCustomPermalink(entry)) {
-			permalink = entry.data.permalink!
-				.replace(/^\/+/, "")
-				.replace(/\/+$/, "");
+			permalink = entry.data.permalink!.replace(/^\/+/, "").replace(/\/+$/, "");
 		}
 		// 其次使用全局 permalink（如果启用）
 		else if (permalinkConfig.enable) {
@@ -76,11 +78,11 @@ let encryptedContent = "";
 let isEncrypted = entry.data.encrypted && entry.data.password;
 
 if (isEncrypted) {
-    const contentToEncrypt = "MIZUKI-VERIFY:" + entry.body;
-    encryptedContent = CryptoJS.AES.encrypt(
-        contentToEncrypt,
-        String(entry.data.password)
-    ).toString();
+	const contentToEncrypt = "MIZUKI-VERIFY:" + entry.body;
+	encryptedContent = CryptoJS.AES.encrypt(
+		contentToEncrypt,
+		String(entry.data.password),
+	).toString();
 }
 
 dayjs.extend(utc);

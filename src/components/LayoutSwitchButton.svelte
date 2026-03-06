@@ -19,17 +19,17 @@ const BREAKPOINT = sidebarLayoutConfig.responsive?.breakpoints?.desktop ?? 1280;
 $: currentLayout = isSmallScreen ? "list" : userPreference;
 
 $: if (mounted) {
-    dispatchLayoutChange(currentLayout);
+	dispatchLayoutChange(currentLayout);
 }
 
 function dispatchLayoutChange(layout: LayoutMode) {
-    if (typeof window !== "undefined") {
-        window.dispatchEvent(
-            new CustomEvent("layoutChange", {
-                detail: { layout },
-            })
-        );
-    }
+	if (typeof window !== "undefined") {
+		window.dispatchEvent(
+			new CustomEvent("layoutChange", {
+				detail: { layout },
+			}),
+		);
+	}
 }
 
 // 辅助函数：同时更新两种存储
@@ -37,109 +37,112 @@ function dispatchLayoutChange(layout: LayoutMode) {
 // localStorage 用于兼容其他组件（如 PostPage.astro）
 // TODO: 使用 sessionStorage 存储状态，关闭标签页即销毁。不应把缓存数据存在访客本地电脑上
 function updateStorage(layout: LayoutMode) {
-    sessionStorage.setItem("postListLayout", layout);
-    localStorage.setItem("postListLayout", layout);
+	sessionStorage.setItem("postListLayout", layout);
+	localStorage.setItem("postListLayout", layout);
 }
 
 function getSavedSessionLayout(): LayoutMode | null {
-    return sessionStorage.getItem("postListLayout") as LayoutMode;
+	return sessionStorage.getItem("postListLayout") as LayoutMode;
 }
 
 function switchLayout() {
-    if (!mounted || isSmallScreen || isSwitching) return;
+	if (!mounted || isSmallScreen || isSwitching) return;
 
-    isSwitching = true;
-    const newLayout = userPreference === "list" ? "grid" : "list";
-    userPreference = newLayout;
-    
-    // 更新存储
-    updateStorage(newLayout);
+	isSwitching = true;
+	const newLayout = userPreference === "list" ? "grid" : "list";
+	userPreference = newLayout;
+
+	// 更新存储
+	updateStorage(newLayout);
 }
 
 function onAnimationEnd() {
-    isSwitching = false;
+	isSwitching = false;
 }
 
 function handleMediaQueryChange(e: MediaQueryListEvent | MediaQueryList) {
-    isSmallScreen = !e.matches;
+	isSmallScreen = !e.matches;
 }
 
 onMount(() => {
-    mounted = true;
+	mounted = true;
 
-    const sessionLayout = getSavedSessionLayout();
-    const defaultLayout = siteConfig.postListLayout.defaultMode as LayoutMode;
-    
-    if (sessionLayout === "list" || sessionLayout === "grid") {
-        userPreference = sessionLayout;
-        
-        if (localStorage.getItem("postListLayout") !== sessionLayout) {
-            localStorage.setItem("postListLayout", sessionLayout);
-        }
-    } else {
-        userPreference = defaultLayout;
-        updateStorage(defaultLayout);
-    }
+	const sessionLayout = getSavedSessionLayout();
+	const defaultLayout = siteConfig.postListLayout.defaultMode as LayoutMode;
 
-    mediaQueryList = window.matchMedia(`(min-width: ${BREAKPOINT}px)`);
-    handleMediaQueryChange(mediaQueryList);
+	if (sessionLayout === "list" || sessionLayout === "grid") {
+		userPreference = sessionLayout;
 
-    if (mediaQueryList.addEventListener) {
-        mediaQueryList.addEventListener("change", handleMediaQueryChange);
-    } else {
-        mediaQueryList.addListener(handleMediaQueryChange);
-    }
+		if (localStorage.getItem("postListLayout") !== sessionLayout) {
+			localStorage.setItem("postListLayout", sessionLayout);
+		}
+	} else {
+		userPreference = defaultLayout;
+		updateStorage(defaultLayout);
+	}
 
-    const handleCustomEvent = (event: CustomEvent<{ layout: LayoutMode }>) => {
-        if (event.detail?.layout) userPreference = event.detail.layout;
-    };
-    
-    const handleSwupEvent = () => {
-        setTimeout(() => {
-            const saved = getSavedSessionLayout();
-            if (saved === "list" || saved === "grid") {
-                userPreference = saved;
-            } else {
-                 userPreference = siteConfig.postListLayout.defaultMode as LayoutMode;
-            }
-        }, 200);
-    };
+	mediaQueryList = window.matchMedia(`(min-width: ${BREAKPOINT}px)`);
+	handleMediaQueryChange(mediaQueryList);
 
-    window.addEventListener("layoutChange", handleCustomEvent as EventListener);
-    
-    const setupSwup = () => {
-        const swup = (window as any).swup;
-        if (swup?.hooks) {
-            swup.hooks.on("content:replace", handleSwupEvent);
-            swup.hooks.on("page:view", handleSwupEvent);
-        } else {
-            window.addEventListener("popstate", handleSwupEvent);
-        }
-    };
+	if (mediaQueryList.addEventListener) {
+		mediaQueryList.addEventListener("change", handleMediaQueryChange);
+	} else {
+		mediaQueryList.addListener(handleMediaQueryChange);
+	}
 
-    if ((window as any).swup) {
-        setupSwup();
-    } else {
-        setTimeout(setupSwup, 200);
-    }
+	const handleCustomEvent = (event: CustomEvent<{ layout: LayoutMode }>) => {
+		if (event.detail?.layout) userPreference = event.detail.layout;
+	};
 
-    return () => {
-        if (mediaQueryList) {
-             if (mediaQueryList.removeEventListener) {
-                mediaQueryList.removeEventListener("change", handleMediaQueryChange);
-            } else {
-                mediaQueryList.removeListener(handleMediaQueryChange);
-            }
-        }
-        window.removeEventListener("layoutChange", handleCustomEvent as EventListener);
-        window.removeEventListener("popstate", handleSwupEvent);
-        
-        const swup = (window as any).swup;
-        if (swup?.hooks) {
-            swup.hooks.off("content:replace", handleSwupEvent);
-            swup.hooks.off("page:view", handleSwupEvent);
-        }
-    };
+	const handleSwupEvent = () => {
+		setTimeout(() => {
+			const saved = getSavedSessionLayout();
+			if (saved === "list" || saved === "grid") {
+				userPreference = saved;
+			} else {
+				userPreference = siteConfig.postListLayout.defaultMode as LayoutMode;
+			}
+		}, 200);
+	};
+
+	window.addEventListener("layoutChange", handleCustomEvent as EventListener);
+
+	const setupSwup = () => {
+		const swup = (window as any).swup;
+		if (swup?.hooks) {
+			swup.hooks.on("content:replace", handleSwupEvent);
+			swup.hooks.on("page:view", handleSwupEvent);
+		} else {
+			window.addEventListener("popstate", handleSwupEvent);
+		}
+	};
+
+	if ((window as any).swup) {
+		setupSwup();
+	} else {
+		setTimeout(setupSwup, 200);
+	}
+
+	return () => {
+		if (mediaQueryList) {
+			if (mediaQueryList.removeEventListener) {
+				mediaQueryList.removeEventListener("change", handleMediaQueryChange);
+			} else {
+				mediaQueryList.removeListener(handleMediaQueryChange);
+			}
+		}
+		window.removeEventListener(
+			"layoutChange",
+			handleCustomEvent as EventListener,
+		);
+		window.removeEventListener("popstate", handleSwupEvent);
+
+		const swup = (window as any).swup;
+		if (swup?.hooks) {
+			swup.hooks.off("content:replace", handleSwupEvent);
+			swup.hooks.off("page:view", handleSwupEvent);
+		}
+	};
 });
 </script>
 

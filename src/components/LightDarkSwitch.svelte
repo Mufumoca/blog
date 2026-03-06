@@ -10,7 +10,7 @@ let mode: LIGHT_DARK_MODE = $state(DEFAULT_THEME);
 let isChanging = false;
 
 onMount(() => {
-    mode = getStoredTheme();
+	mode = getStoredTheme();
 });
 
 function switchScheme(newMode: LIGHT_DARK_MODE) {

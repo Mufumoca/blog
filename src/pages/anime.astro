@@ -52,8 +52,7 @@ if (!siteConfig.featurePages.anime) {
 }
 
 const hasRightSidebars =
-	widgetManager.getComponentsByPosition("top", "right", "desktop").length >
-		0 ||
+	widgetManager.getComponentsByPosition("top", "right", "desktop").length > 0 ||
 	widgetManager.getComponentsByPosition("sticky", "right", "desktop").length >
 		0;
 
@@ -172,7 +171,8 @@ const statusMap: Record<string, { text: string; class: string; icon: string }> =
 	{
 		watching: {
 			text: i18n(I18nKey.animeStatusWatching),
-			class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+			class:
+				"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
 			icon: "▶",
 		},
 		completed: {
@@ -182,12 +182,14 @@ const statusMap: Record<string, { text: string; class: string; icon: string }> =
 		},
 		planned: {
 			text: i18n(I18nKey.animeStatusPlanned),
-			class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+			class:
+				"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
 			icon: "❤",
 		},
 		onhold: {
 			text: i18n(I18nKey.animeStatusOnHold),
-			class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+			class:
+				"bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
 			icon: "⏸",
 		},
 		dropped: {

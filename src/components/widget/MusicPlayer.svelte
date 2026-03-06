@@ -35,7 +35,7 @@ let currentTime = 0;
 let duration = 0;
 
 // localStorage 存储音量
-const STORAGE_KEY_VOLUME = 'music-player-volume';
+const STORAGE_KEY_VOLUME = "music-player-volume";
 
 // 音量，默认为 0.7
 let volume = 0.7;
@@ -106,24 +106,24 @@ const localPlaylist = [
 // 从localStorage加载音量设置
 function loadVolumeSettings() {
 	try {
-		if (typeof localStorage !== 'undefined') {
+		if (typeof localStorage !== "undefined") {
 			const savedVolume = localStorage.getItem(STORAGE_KEY_VOLUME);
 			if (savedVolume !== null && !isNaN(parseFloat(savedVolume))) {
 				volume = parseFloat(savedVolume);
 			}
 		}
 	} catch (e) {
-		console.warn('Failed to load volume settings from localStorage:', e);
+		console.warn("Failed to load volume settings from localStorage:", e);
 	}
 }
 // 保存音量设置到localStorage
 function saveVolumeSettings() {
 	try {
-		if (typeof localStorage !== 'undefined') {
+		if (typeof localStorage !== "undefined") {
 			localStorage.setItem(STORAGE_KEY_VOLUME, volume.toString());
 		}
 	} catch (e) {
-		console.warn('Failed to save volume settings to localStorage:', e);
+		console.warn("Failed to save volume settings to localStorage:", e);
 	}
 }
 
@@ -142,7 +142,7 @@ async function fetchMetingPlaylist() {
 		const list = await res.json();
 		playlist = list.map((song: any) => {
 			let title = song.name ?? song.title ?? i18n(Key.unknownSong);
-		let artist = song.artist ?? song.author ?? i18n(Key.unknownArtist);
+			let artist = song.artist ?? song.author ?? i18n(Key.unknownArtist);
 			let dur = song.duration ?? 0;
 			if (dur > 10000) dur = Math.floor(dur / 1000);
 			if (!Number.isFinite(dur) || dur <= 0) dur = 0;
@@ -195,16 +195,16 @@ function togglePlaylist() {
 }
 
 function toggleShuffle() {
-    isShuffled = !isShuffled;
+	isShuffled = !isShuffled;
 	if (isShuffled) {
-        isRepeating = 0;
+		isRepeating = 0;
 	}
 }
 
 function toggleRepeat() {
-    isRepeating = (isRepeating + 1) % 3;
+	isRepeating = (isRepeating + 1) % 3;
 	if (isRepeating !== 0) {
-        isShuffled = false;
+		isShuffled = false;
 	}
 }
 
@@ -216,7 +216,7 @@ function previousSong() {
 
 function nextSong(autoPlay: boolean = true) {
 	if (playlist.length <= 1) return;
-	
+
 	let newIndex: number;
 	if (isShuffled) {
 		do {
@@ -233,8 +233,8 @@ let willAutoPlay = false;
 
 function playSong(index: number, autoPlay = true) {
 	if (index < 0 || index >= playlist.length) return;
-	
-    willAutoPlay = autoPlay;
+
+	willAutoPlay = autoPlay;
 	currentIndex = index;
 	loadSong(playlist[currentIndex]);
 }
@@ -269,34 +269,36 @@ function handleLoadSuccess() {
 	}
 
 	if (willAutoPlay || isPlaying) {
-        const playPromise = audio.play();
+		const playPromise = audio.play();
 		if (playPromise !== undefined) {
-            playPromise.catch((error) => {
-                console.warn("自动播放被拦截，等待用户交互:", error);
-                autoplayFailed = true;
+			playPromise.catch((error) => {
+				console.warn("自动播放被拦截，等待用户交互:", error);
+				autoplayFailed = true;
 				isPlaying = false;
-            });
+			});
 		}
-    }
+	}
 }
 
 function handleUserInteraction() {
-    if (autoplayFailed && audio) {
-        const playPromise = audio.play();
+	if (autoplayFailed && audio) {
+		const playPromise = audio.play();
 		if (playPromise !== undefined) {
-            playPromise.then(() => {
-                autoplayFailed = false;
-            }).catch(() => {});
+			playPromise
+				.then(() => {
+					autoplayFailed = false;
+				})
+				.catch(() => {});
 		}
-    }
+	}
 }
 
 function handleLoadError(_event: Event) {
 	if (!currentSong.url) return;
 	isLoading = false;
 	showErrorMessage(i18n(Key.musicPlayerErrorSong));
-	
-    const shouldContinue = isPlaying || willAutoPlay;
+
+	const shouldContinue = isPlaying || willAutoPlay;
 	if (playlist.length > 1) {
 		setTimeout(() => nextSong(shouldContinue), 1000);
 	} else {
@@ -310,10 +312,7 @@ function handleAudioEnded() {
 	if (isRepeating === 1) {
 		audio.currentTime = 0;
 		audio.play().catch(() => {});
-	} else if (
-		isRepeating === 2 ||
-		isShuffled
-	) {
+	} else if (isRepeating === 2 || isShuffled) {
 		nextSong(true);
 	} else {
 		isPlaying = false;
@@ -346,53 +345,50 @@ let volumeBarRect: DOMRect | null = null;
 let rafId: number | null = null;
 
 function startVolumeDrag(event: PointerEvent) {
-    if (!volumeBar) return;
+	if (!volumeBar) return;
 	event.preventDefault();
-    
-    isPointerDown = true; 
+
+	isPointerDown = true;
 	volumeBar.setPointerCapture(event.pointerId);
 
-    volumeBarRect = volumeBar.getBoundingClientRect();
-    updateVolumeLogic(event.clientX);
+	volumeBarRect = volumeBar.getBoundingClientRect();
+	updateVolumeLogic(event.clientX);
 }
 
 function handleVolumeMove(event: PointerEvent) {
-    if (!isPointerDown) return;
+	if (!isPointerDown) return;
 	event.preventDefault();
 
-    isVolumeDragging = true; 
-    if (rafId) return;
+	isVolumeDragging = true;
+	if (rafId) return;
 
 	rafId = requestAnimationFrame(() => {
-        updateVolumeLogic(event.clientX);
-        rafId = null;
-    });
+		updateVolumeLogic(event.clientX);
+		rafId = null;
+	});
 }
 
 function stopVolumeDrag(event: PointerEvent) {
-    if (!isPointerDown) return;
+	if (!isPointerDown) return;
 	isPointerDown = false;
-    isVolumeDragging = false;
-    volumeBarRect = null;
+	isVolumeDragging = false;
+	volumeBarRect = null;
 	if (volumeBar) {
 		volumeBar.releasePointerCapture(event.pointerId);
 	}
 
 	if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
+		cancelAnimationFrame(rafId);
+		rafId = null;
 	}
-    saveVolumeSettings();
+	saveVolumeSettings();
 }
 
 function updateVolumeLogic(clientX: number) {
-    if (!audio || !volumeBar) return;
+	if (!audio || !volumeBar) return;
 
-    const rect = volumeBarRect || volumeBar.getBoundingClientRect();
-	const percent = Math.max(
-        0,
-        Math.min(1, (clientX - rect.left) / rect.width),
-    );
+	const rect = volumeBarRect || volumeBar.getBoundingClientRect();
+	const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
 	volume = percent;
 }
 
@@ -407,12 +403,12 @@ function formatTime(seconds: number): string {
 	return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
-const interactionEvents = ['click', 'keydown', 'touchstart'];
+const interactionEvents = ["click", "keydown", "touchstart"];
 onMount(() => {
-    loadVolumeSettings(); 
-    interactionEvents.forEach(event => {
-        document.addEventListener(event, handleUserInteraction, { capture: true });
-    });
+	loadVolumeSettings();
+	interactionEvents.forEach((event) => {
+		document.addEventListener(event, handleUserInteraction, { capture: true });
+	});
 
 	if (!musicPlayerConfig.enable) {
 		return;
@@ -431,11 +427,13 @@ onMount(() => {
 });
 
 onDestroy(() => {
-    if (typeof document !== 'undefined') {
-        interactionEvents.forEach(event => {
-            document.removeEventListener(event, handleUserInteraction, { capture: true });
-        });
-    }
+	if (typeof document !== "undefined") {
+		interactionEvents.forEach((event) => {
+			document.removeEventListener(event, handleUserInteraction, {
+				capture: true,
+			});
+		});
+	}
 });
 </script>
 

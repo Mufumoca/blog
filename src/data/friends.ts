@@ -28,6 +28,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://www.aspchang.com",
 		tags: ["博客"],
 	},
+	{
+		id: 3,
+		title: "風雪城",
+		imgurl: "https://q1.qlogo.cn/g?b=qq&nk=3526514925&s=640",
+		desc: "浩繁星空下的一场稚嫩的梦",
+		siteurl: "https://blog.chyk.ink/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

@@ -44,6 +44,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://www.windyl.de",
 		tags: ["博客"],
 	},
+	{
+		id: 5,
+		title: "XiaoShuoHub",
+		imgurl: "https://www.xiaoshuohub.com/favicon.ico",
+		desc: "连接读者、作者与运营团队的小说社区",
+		siteurl: "https://www.xiaoshuohub.com/",
+		tags: ["社区"],
+	},
 ];
 
 // 获取所有友情链接数据

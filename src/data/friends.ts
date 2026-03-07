@@ -52,6 +52,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://www.xiaoshuohub.com/",
 		tags: ["社区"],
 	},
+	{
+		id: 6,
+		title: "纳西妲",
+		imgurl: "https://nahida.im/favicon.ico",
+		desc: "为世界上一切美好而战!",
+		siteurl: "https://nahida.im/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

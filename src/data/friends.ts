@@ -60,6 +60,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://nahida.im/",
 		tags: ["博客"],
 	},
+	{
+		id: 7,
+		title: "Harena Blog",
+		imgurl: "https://blog.harena.tech/assets/home/home.png",
+		desc: "晴空之下，洞见科技与生活",
+		siteurl: "https://blog.harena.tech/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

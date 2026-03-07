@@ -1,0 +1,45 @@
+name: 新朋友
+description: 提交友链申请
+title: "[New Friend] "
+labels: ["friend-link"]
+body:
+  - type: input
+    id: site-name
+    attributes:
+      label: 网站名称
+      description: 你希望显示为友链标题的文字
+      placeholder: "例如：Moca's Blog"
+    validations:
+      required: true
+  - type: input
+    id: site-url
+    attributes:
+      label: 网站链接
+      description: 你的网站地址（请确保 HTTPS 可用）
+      placeholder: "https://example.com"
+    validations:
+      required: true
+  - type: input
+    id: site-description
+    attributes:
+      label: 介绍
+      description: 一句话介绍你的网站
+      placeholder: "一个关于技术和生活的个人博客"
+    validations:
+      required: true
+  - type: input
+    id: avatar
+    attributes:
+      label: 头像
+      description: "1:1 效果最佳，URL 或文件都行"
+      placeholder: "https://example.com/avatar.png"
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充说明
+      description: 如果有其他想说的，可以写在这里
+      placeholder: "（可选）"
+    validations:
+      required: false

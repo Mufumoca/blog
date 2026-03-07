@@ -36,6 +36,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://blog.chyk.ink/",
 		tags: ["博客"],
 	},
+	{
+		id: 4,
+		title: "洛风缘的小屋",
+		imgurl: "https://gcore.jsdelivr.net/gh/fengyuanluo/tuchuang@main/background189%20(2).webp",
+		desc: "一个不知名的网络自留地",
+		siteurl: "https://www.windyl.de",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

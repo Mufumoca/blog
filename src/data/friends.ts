@@ -68,6 +68,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://blog.harena.tech/",
 		tags: ["博客"],
 	},
+	{
+		id: 8,
+		title: "忧郁の诺布尔",
+		imgurl: "https://miluyami.com/wp-content/uploads/2026/01/cropped-Konachan.com-394193-sample.jpg",
+		desc: "技术与快乐并存~",
+		siteurl: "https://miluyami.com/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

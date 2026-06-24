@@ -84,6 +84,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://blog.bytevibe.dev/",
 		tags: ["博客"],
 	},
+	{
+		id: 10,
+		title: "Eliauk's Blog",
+		imgurl: "https://img.eliauk312.top/avatar/default-avatar.jpg",
+		desc: "一方天地，记录代码、生活和偶尔的奇思妙想。",
+		siteurl: "https://eliauk312.top/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据

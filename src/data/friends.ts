@@ -76,6 +76,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://miluyami.com/",
 		tags: ["博客"],
 	},
+	{
+		id: 9,
+		title: "ByteVibe Blog",
+		imgurl: "https://blog.bytevibe.dev/favicon.png",
+		desc: "A byte of code, a vibe of life.",
+		siteurl: "https://blog.bytevibe.dev/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据
